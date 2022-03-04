@@ -14,6 +14,14 @@ function App() {
       setAnswerDisplayed("try again");
     }
   }
+  function nextQuestion() {
+    if (questionNum < data.length - 1) {
+      setQuestionNum(questionNum + 1);
+    } else {
+      setAnswerDisplayed("End");
+    }
+  }
+
   return (
     <div className="app">
       Trivia!
@@ -28,7 +36,7 @@ function App() {
         func={setToTrue}
       />
       {answerDisplayed}
-      <NextQuestion />
+      <NextQuestion func={} />
     </div>
   );
 }
@@ -44,18 +52,18 @@ function Question({ text, answerChoices, correctAnswer, func }) {
     </div>
   );
 }
-function NextQuestion() {
+function NextQuestion({ func }) {
   return (
     <div>
-      <button>next question</button>
+      <button onClick={func}>next question</button>
     </div>
   );
 }
 function Answer({ answerChoices, correctAnswer, func }) {
   return (
     <div className="choices">
-      {answerChoices.map((k) => (
-        <div>
+      {answerChoices.map((k, index) => (
+        <div key={index}>
           <Button answer={k} correctAnswer={correctAnswer} func={func} />
         </div>
       ))}
